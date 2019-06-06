@@ -3,7 +3,7 @@ services:
   web:
     build: .
     ports:
-      - "5000:5000"
+      - "9644:5000"
     volumes:
       - .:/code
     environment:
