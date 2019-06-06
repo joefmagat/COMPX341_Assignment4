@@ -96,22 +96,27 @@ def show_prime_number(number):
 	count = get_hit_count()
 	_set = set(number) #sets the number inputed
 	_get = get() #gets the number inputed
-						
-	if number > 1:
-		for i in range(2,number):
-			if (number % i) == 0:			
-				str = '{} is not a prime number'.format(_number)
-				str2 = 'count: {}'.format(count)
-				str3 = 'get from redis: {}'.format(_get)
-				newLine = '<br/>'
-				return str + newLine
-		else:
-			
-			_lpush = lpush(_get)
-			_lrange = lrange()
-			return '{} is a prime number'.format(_number)
-	else:
+	
+	
+	#The following prime number checker is obtained and modified from https://www.geeksforgeeks.org/python-program-to-check-whether-a-number-is-prime-or-not/
+		
+	if (number<= 1):
 		return '{} is not a prime number'.format(_number)
+	if (number<=3):
+		_lpush = lpush(_get) #adds to stored prime number list
+		_lrange = lrange()
+		return '{} is a prime number'.format(_number)
+	if (number % 2 == 0 or number % 3 == 0):
+		return '{} is not a prime number'.format(_number)
+
+	i = 5
+	while(i * i <= number):
+		if (number % i == 0 or number % (i + 2) == 0):
+			return '{} is not a prime number'.format(_number)
+		i = i + 6
+	_lpush = lpush(_get) #adds to stored prime number list
+	_lrange = lrange()
+	return '{} is a prime number'.format(_number)
 
 
 
