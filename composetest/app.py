@@ -24,8 +24,16 @@ def hello():
 
 @app.route('/prime/<int:number>')
 def show_prime_number(number):
-    # show the user profile for that user
-    return 'Number %d' % number
+	_number = number
+	if number > 1:
+		for i in range(2,number):
+			if (number % i) == 0:
+				return '{} is not a prime number'.format(_number)
+		else:
+			return '{} is a prime number'.format(_number)
+	else:
+		return '{} is not a prime number'.format(_number)
+
 
 
 
